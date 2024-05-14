@@ -1,0 +1,18 @@
+###Server api
+@rootURL = http://localhost:8000
+@apiEp  = {{rootURL}}/api/v1
+
+###check the ep server status
+GET {{apiEp}}/
+
+###check the root server status
+GET {{rootURL}}/    
+
+###check the ep server status
+GET {{apiEp}}/users
+
+###check the invalid server status
+GET {{rootURL}}/sfdas
+
+###check the invalid server status
+GET {{apiEp}}/sdffdsds
