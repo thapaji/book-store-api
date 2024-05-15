@@ -1,6 +1,7 @@
 import express from "express";
 import { hashPassword } from "../utils/bcrypt.js";
 import { insertUser } from "../model/users/UserModel.js";
+import { newUserValidation } from "../middlewares/joiValidation.js";
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.get("/", (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", newUserValidation, async (req, res, next) => {
   try {
     req.body.password = hashPassword(req.body.password);
     const user = await insertUser(req.body);

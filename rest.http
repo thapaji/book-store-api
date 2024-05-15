@@ -19,11 +19,15 @@ GET {{apiEp}}/sdffdsds
 
 
 
-###check the ep server status
-POST {{apiEp}}/users
+### Post user 
+POST {{apiEp}}
 Content-Type: application/json
 
 {
-    'fname' : 'sujan',
-    'email' : 'b@b.com'
+    "fName": "prem",
+    "lName": "presfdsm",
+    "phone": 34567,
+    "email": "{asdf@sdfc.com",
+    "password": "sdfdsf"
+  
 }
