@@ -20,14 +20,14 @@ GET {{apiEp}}/sdffdsds
 
 
 ### Post user 
-POST {{apiEp}}
+POST {{apiEp}}/users
 Content-Type: application/json
 
 {
-    "fName": "prem",
-    "lName": "presfdsm",
-    "phone": 34567,
-    "email": "{asdf@sdfc.com",
+    "fname": "sujan",
+    "lname": "thapa",
+    "phone": "234345345",
+    "email": "asdf@sdfc.com",
     "password": "sdfdsf"
   
 }
