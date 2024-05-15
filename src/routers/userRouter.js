@@ -27,14 +27,19 @@ router.post("/", async (req, res, next) => {
 
     user?._id
       ? res.json({
-          status: "success",
-          message: "Your Account has been created",
-        })
-      : es.json({
-          status: "error",
-          message: "Unable to create user. Please try again",
-        });
+        status: "success",
+        message: "Your Account has been created",
+        user
+      })
+      : res.json({
+        status: "error",
+        message: "Unable to create user. Please try again",
+      });
   } catch (error) {
+    if (error.message.includes('E11000 duplicate key')) {
+      error.status = '200';
+      error.message = 'Email already in use...'
+    }
     next(error);
   }
 });

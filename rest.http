@@ -16,3 +16,14 @@ GET {{rootURL}}/sfdas
 
 ###check the invalid server status
 GET {{apiEp}}/sdffdsds
+
+
+
+###check the ep server status
+POST {{apiEp}}/users
+Content-Type: application/json
+
+{
+    'fname' : 'sujan',
+    'email' : 'b@b.com'
+}
