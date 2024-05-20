@@ -17,7 +17,13 @@ export const getUsers = () => {
 }
 
 /*UPDATE*/
-export const updateUser = (_id, listItem) => {
+
+export const updateUser = async (filter, obj) => {
+    console.log(listItem);
+    return await UserSchema.findOneAndUpdate(filter, obj);
+}
+
+export const updateUserbyId = (_id, listItem) => {
     console.log(listItem);
     return UserSchema.findByIdAndUpdate({ _id }, { ...users }, { new: true });
 }
