@@ -1,6 +1,6 @@
 import express from "express";
-import { hashPassword } from "../utils/bcrypt.js";
-import { insertUser } from "../model/users/UserModel.js";
+import { comparePassword, hashPassword } from "../utils/bcrypt.js";
+import { getUserByEmail, insertUser } from "../model/users/UserModel.js";
 import { newUserValidation } from "../middlewares/joiValidation.js";
 
 const router = express.Router();
@@ -44,5 +44,33 @@ router.post("/", newUserValidation, async (req, res, next) => {
     next(error);
   }
 });
+
+router.post('/login', async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    if (!email.includes('@') || !password) {
+      throw new Error('Please provide email and password');
+    }
+    const user = await getUserByEmail(email);
+    if (user?._id) {
+      const isMatch = comparePassword(password, user.password);
+      if (isMatch) {
+        return res.json({
+          status: 'success',
+          message: 'user logged in',
+          tokens: {}
+        })
+      } else {
+        throw new Error('Incorrect password')
+      }
+    }
+    // res.json({
+    //   status: 'success',
+    //   message: 'login'
+    // })
+  } catch (error) {
+    next(error)
+  }
+})
 
 export default router;
