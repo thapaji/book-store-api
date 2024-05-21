@@ -3,24 +3,19 @@ import { comparePassword, hashPassword } from "../utils/bcrypt.js";
 import { getUserByEmail, insertUser } from "../model/users/UserModel.js";
 import { newUserValidation } from "../middlewares/joiValidation.js";
 import { signAccessToken, signRefreshJWT } from "../utils/jwt.js";
+import { auth } from "../middlewares/auth.js";
 
 const router = express.Router();
+
+
+/***************** Public Controllers ******************/
 
 router.all("/", (req, res, next) => {
   console.log("from all");
   next();
 });
 
-router.get("/", (req, res, next) => {
-  try {
-    res.json({
-      status: "success",
-      message: "todo GET",
-    });
-  } catch (error) {
-    next(error);
-  }
-});
+
 
 router.post("/", newUserValidation, async (req, res, next) => {
   try {
@@ -74,5 +69,22 @@ router.post('/login', async (req, res, next) => {
     next(error)
   }
 })
+
+
+/************** Private Controllers *****************/
+
+router.get("/", auth, (req, res, next) => {
+  try {
+    req.userInfo.refreshJWT = undefined;
+    req.userInfo._v = undefined;
+    res.json({
+      status: "success",
+      message: "todo GET",
+      user: req.userInfo
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default router;

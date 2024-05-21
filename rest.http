@@ -5,14 +5,16 @@
 ###check the ep server status
 GET {{apiEp}}/
 
+
 ###check the root server status
 GET {{rootURL}}/    
 
 ###check the ep server status
 GET {{apiEp}}/users
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3MTYyNTc1MDIsImV4cCI6MTcxNjI1ODQwMn0.SKZJLwq1oyisz9T6RsHUCnlqdEpE8ILr0hpOF04R4hQ
 
 ###check the invalid server status
-GET {{rootURL}}/sfdas
+GET {{rootURL}}/
 
 ###check the invalid server status
 GET {{apiEp}}/sdffdsds

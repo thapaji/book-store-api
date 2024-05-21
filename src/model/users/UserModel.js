@@ -19,7 +19,7 @@ export const getUsers = () => {
 /*UPDATE*/
 
 export const updateUser = async (filter, obj) => {
-    console.log(listItem);
+    console.log(obj);
     return await UserSchema.findOneAndUpdate(filter, obj);
 }
 
