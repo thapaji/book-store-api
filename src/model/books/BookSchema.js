@@ -20,7 +20,7 @@ const BookSchema = new mongoose.Schema({
         required: true
     },
     publishedYear: {
-        type: number,
+        type: Number,
         required: true
     },
     thumbnail: {
@@ -37,4 +37,4 @@ const BookSchema = new mongoose.Schema({
     }
 )
 
-export default mongoose.model('session', BookSchema)
+export default mongoose.model('book', BookSchema)

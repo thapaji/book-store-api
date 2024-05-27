@@ -28,3 +28,7 @@ export const auth = async (req, res, next) => {
         next(error)
     }
 }
+
+export const isAdmin = async (req, res, next) => {
+    req.userInfo.role === 'admin' ? next() : res.status(403).json({ message: 'You are not authorized to perform this action' });
+}

@@ -1,5 +1,6 @@
 import express from "express";
-import { auth } from "../middlewares/auth.js";
+import { auth, isAdmin } from "../middlewares/auth.js";
+import { insertBook } from "../model/books/BookModel.js";
 
 const router = express.Router();
 
@@ -7,13 +8,21 @@ router.all("/", (req, res, next) => {
     next();
 });
 
-router.post("/", auth, async (req, res, next) => {
+router.post("/", auth, isAdmin, async (req, res, next) => {
     try {
-        if (req.userInfo.role !== 'admin') {
-            throw new Error({ status: 403, message: 'You are not authorized to perform this action' })
-        }
-        console.log(req.body)
 
+        console.log(req.body)
+        const book = await insertBook(req.body);
+        book?._id
+            ? res.json({
+                status: "success",
+                message: "Your Book has been added successfully",
+                book
+            })
+            : res.json({
+                status: "error",
+                message: "Unable to add book. Please try again",
+            });
     } catch (error) {
         if (error.message.includes('E11000 duplicate key')) {
             error.status = '200';
