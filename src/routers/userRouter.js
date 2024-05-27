@@ -76,7 +76,7 @@ router.post('/login', async (req, res, next) => {
 router.get("/", auth, (req, res, next) => {
   try {
     req.userInfo.refreshJWT = undefined;
-    req.userInfo._v = undefined;
+    req.userInfo.__v = undefined;
     res.json({
       status: "success",
       message: "todo GET",
