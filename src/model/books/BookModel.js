@@ -8,7 +8,6 @@ export const insertBook = (Book) => {
 
 /*READ*/
 export const getBookById = (_id) => {
-    console.log(email)
     return BookSchema.findById(_id);
 }
 

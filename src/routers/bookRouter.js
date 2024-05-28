@@ -1,6 +1,6 @@
 import express from "express";
 import { auth, isAdmin } from "../middlewares/auth.js";
-import { insertBook } from "../model/books/BookModel.js";
+import { getAllBooks, getBookById, insertBook } from "../model/books/BookModel.js";
 
 const router = express.Router();
 
@@ -31,5 +31,44 @@ router.post("/", auth, isAdmin, async (req, res, next) => {
         next(error);
     }
 });
+
+
+router.get('/all', auth, isAdmin, async (req, res, next) => {
+    try {
+        const books = await getAllBooks();
+        res.json({
+            status: 'success',
+            books
+        })
+    } catch (error) {
+        next(error)
+    }
+})
+
+/*************** Public Controllers ***************/
+router.get('/', async (req, res, next) => {
+    try {
+        const books = await getAllBooks({ status: 'active' });
+        res.json({
+            status: 'success',
+            books
+        })
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.get('/:_id', async (req, res, next) => {
+    try {
+        const { _id } = req.params
+        const book = _id ? await getBookById(_id) : await getAllBooks({ status: 'active' });
+        res.json({
+            status: 'success',
+            book
+        })
+    } catch (error) {
+        next(error)
+    }
+})
 
 export default router;
