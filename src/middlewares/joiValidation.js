@@ -15,6 +15,7 @@ const joiValiValidator = ({ req, res, next, schema }) => {
             })
             : next();
     } catch (error) {
+        console.log(error)
         next(error);
     }
 }
@@ -40,6 +41,29 @@ export const newBookValidation = (req, res, next) => {
         isbn: Joi.string().required(),
         publishedYear: Joi.string().required(),
         description: Joi.string().required(),
+    });
+
+    return joiValiValidator({ req, res, next, schema });
+};
+
+export const updateBookValidation = (req, res, next) => {
+    const schema = Joi.object({
+        _id: Joi.string().required(),
+        title: Joi.string().required(),
+        author: Joi.string().required(),
+        thumbnail: Joi.string().allow("", null),
+        status: Joi.string().required(),
+        isbn: Joi.string().required(),
+        publishedYear: Joi.number(),
+        description: Joi.string().required(),
+    });
+
+    return joiValiValidator({ req, res, next, schema });
+};
+
+export const idValidation = (req, res, next) => {
+    const schema = Joi.object({
+        _id: Joi.string().required(),
     });
 
     return joiValiValidator({ req, res, next, schema });

@@ -22,16 +22,15 @@ export const updateBook = async (filter, obj) => {
     return await BookSchema.findOneAndUpdate(filter, obj);
 }
 
-export const updateBookbyId = (_id, listItem) => {
-    console.log(listItem);
-    return BookSchema.findByIdAndUpdate({ _id }, { ...Books }, { new: true });
+export const updateBookbyId = (_id, book) => {
+    return BookSchema.findByIdAndUpdate({ _id }, { ...book }, { new: true });
 }
 
 /*DELETE ONE or  MANY*/
 
 export const deleteBookbyId = (_id) => {
     console.log(listItem);
-    return BookSchema.findByIdAndDelete(_id );
+    return BookSchema.findByIdAndDelete(_id);
 }
 
 export const deleteBook = (ids) => {
