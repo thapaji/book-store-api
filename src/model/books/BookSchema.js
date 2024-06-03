@@ -30,6 +30,14 @@ const BookSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    isAvailable: {
+        type: Boolean,
+        required: true
+    },
+    expectedAvailable: {
+        type: String,
+        default: null
     }
 },
     {

@@ -68,3 +68,13 @@ export const idValidation = (req, res, next) => {
 
     return joiValiValidator({ req, res, next, schema });
 };
+
+export const newBorrowValidation = (req, res, next) => {
+    const schema = Joi.object({
+        bookTitle: Joi.string().required(),
+        bookId: Joi.string().required(),
+        thumbnail: Joi.string().required()
+    });
+
+    return joiValiValidator({ req, res, next, schema });
+}

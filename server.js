@@ -5,6 +5,7 @@ import { conectMongo } from "./src/config/mongoDBConfig.js";
 import cors from 'cors';
 import userRouter from './src/routers/userRouter.js'
 import bookRouter from './src/routers/bookRouter.js'
+import borrowRouter from './src/routers/borrowRouter.js'
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(cors())
 /*************** Routers and endpoints ***********************/
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/books', bookRouter)
+app.use('/api/v1/borrow', borrowRouter)
 
 app.get('/', (req, res, next) => {
   res.json({
