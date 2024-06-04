@@ -16,13 +16,13 @@ router.post("/", auth, isAdmin, newBorrowValidation, async (req, res, next) => {
     try {
         const today = new Date();
         console.log(req.body)
+        const { _id, fname } = req.userInfo;
         const Borrow = await insertBorrow({ ...req.body, userId: _id, userName: fname });
         if (Borrow) {
             await updateBookbyId(req.body.bookId, { isAvailable: false, expectedAvailable: today.setDate(today.getDate() + defaultborrowDays, 'day') })
             return res.json({
                 status: "success",
                 message: "This book is available in your account.",
-                Borrow
             })
         }
         res.json({
@@ -39,24 +39,33 @@ router.post("/", auth, isAdmin, newBorrowValidation, async (req, res, next) => {
     }
 });
 
-// router.put("/", auth, isAdmin, updateBorrowValidation, async (req, res, next) => {
-//     try {
-//         const Borrow = await updateBorrowbyId(req.body._id, req.body);
-//         Borrow?._id
-//             ? res.json({
-//                 status: "success",
-//                 message: "Your Borrow has been updated successfully",
-//                 Borrow
-//             })
-//             : res.json({
-//                 status: "error",
-//                 message: "Unable to update Borrow. Please try again",
-//             });
-//     } catch (error) {
-//         console.log(error)
-//         next(error);
-//     }
-// });
+router.put("/", auth, async (req, res, next) => {
+    try {
+        if (!req.body.bookId || !req.body._id) {
+            throw new Error('Invalid Data...')
+        }
+        const borrowId = req.body._id;
+        const { _id } = req.body.bookId;
+        const borrow = await updateBorrowbyId(req.body._id, {
+            isReturned: true,
+            returnedDate: new Date()
+        })
+        const book = await updateBookbyId(req.body.bookId, { isAvailable: true, expectedAvailable: null });
+
+        borrow?._id
+            ? res.json({
+                status: "success",
+                message: "You returned book successfully",
+            })
+            : res.json({
+                status: "error",
+                message: "Unable to return. Contact library",
+            });
+    } catch (error) {
+        console.log(error)
+        next(error);
+    }
+});
 
 
 router.get('/all', auth, isAdmin, async (req, res, next) => {
@@ -74,10 +83,11 @@ router.get('/all', auth, isAdmin, async (req, res, next) => {
 /*************** Public Controllers ***************/
 router.get('/', async (req, res, next) => {
     try {
-        const Borrow = await getAllBorrow({ status: 'active' });
+        const { _id, role } = req.userInfo;
+        const borrows = await getAllBorrow({ userId: _id }) || [];
         res.json({
             status: 'success',
-            Borrow
+            borrows
         })
     } catch (error) {
         next(error)

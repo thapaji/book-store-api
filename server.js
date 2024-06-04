@@ -25,7 +25,7 @@ app.use(cors())
 /*************** Routers and endpoints ***********************/
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/books', bookRouter)
-app.use('/api/v1/borrow', borrowRouter)
+app.use('/api/v1/borrows', borrowRouter)
 
 app.get('/', (req, res, next) => {
   res.json({
