@@ -6,10 +6,12 @@ const BorrowSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
+    /*************************************** 
     userName: {
         type: String,
         required: true
     },
+    *****************************************/
     bookId: {
         type: mongoose.Types.ObjectId,
         ref: "Book",
@@ -28,7 +30,7 @@ const BorrowSchema = new mongoose.Schema({
         required: true
     },
     ratings: {
-        type: NUmber,
+        type: Number,
         min: 1,
         max: 5,
         required: true

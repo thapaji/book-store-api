@@ -31,6 +31,7 @@ const BookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    /************************* 
     isAvailable: {
         type: Boolean,
         required: true
@@ -39,6 +40,7 @@ const BookSchema = new mongoose.Schema({
         type: String,
         default: null
     }
+    ***************************/
 },
     {
         timestamps: true,

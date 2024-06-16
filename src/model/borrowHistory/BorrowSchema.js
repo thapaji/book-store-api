@@ -6,21 +6,9 @@ const BorrowSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    userName: {
-        type: String,
-        required: true
-    },
     bookId: {
         type: mongoose.Types.ObjectId,
         ref: "Book",
-        required: true
-    },
-    bookTitle: {
-        type: String,
-        required: true
-    },
-    thumbnail: {
-        type: String,
         required: true
     },
     dueDate: {
@@ -33,6 +21,20 @@ const BorrowSchema = new mongoose.Schema({
     returnedDate: {
         type: Date,
     }
+    /***********************
+    bookTitle: {
+        type: String,
+        required: true
+    },
+     userName: {
+        type: String,
+        required: true
+    },
+    thumbnail: {
+        type: String,
+        required: true
+    },
+    **************************/
 },
     {
         timestamps: true,
