@@ -19,6 +19,10 @@ const BookSchema = new mongoose.Schema({
         index: 1,
         required: true
     },
+    category: {
+        type: String,
+        required: true
+    },
     publishedYear: {
         type: Number,
         required: true
@@ -30,6 +34,14 @@ const BookSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    count: {
+        type: Number,
+        default: 0,
+    },
+    damaged: {
+        type: Number,
+        default: 0,
     },
     /************************* 
     isAvailable: {

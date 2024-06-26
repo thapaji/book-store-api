@@ -37,6 +37,7 @@ export const newBookValidation = (req, res, next) => {
     const schema = Joi.object({
         title: Joi.string().required(),
         author: Joi.string().required(),
+        category: Joi.string().required(),
         thumbnail: Joi.string().allow("", null),
         isbn: Joi.string().required(),
         publishedYear: Joi.string().required(),
@@ -53,6 +54,7 @@ export const updateBookValidation = (req, res, next) => {
         author: Joi.string().required(),
         thumbnail: Joi.string().allow("", null),
         status: Joi.string().required(),
+        category: Joi.string().required(),
         isbn: Joi.string().required(),
         publishedYear: Joi.number(),
         description: Joi.string().required(),
