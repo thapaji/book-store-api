@@ -55,6 +55,8 @@ export const updateBookValidation = (req, res, next) => {
         thumbnail: Joi.string().allow("", null),
         status: Joi.string().required(),
         category: Joi.string().required(),
+        count: Joi.number().required(),
+        damaged: Joi.number().required(),
         isbn: Joi.string().required(),
         publishedYear: Joi.number(),
         description: Joi.string().required(),

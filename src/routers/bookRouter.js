@@ -1,6 +1,6 @@
 import express from "express";
 import { auth, isAdmin } from "../middlewares/auth.js";
-import { getAllBooks, getBookById, insertBook, updateBookbyId } from "../model/books/BookModel.js";
+import { deleteBookbyId, getAllBooks, getBookById, insertBook, updateBookbyId } from "../model/books/BookModel.js";
 import { idValidation, newBookValidation, updateBookValidation } from "../middlewares/joiValidation.js";
 
 const router = express.Router();
@@ -90,5 +90,39 @@ router.get('/:_id', async (req, res, next) => {
         next(error)
     }
 })
+
+router.delete('/:_id', async (req, res, next) => {
+    try {
+        const { _id } = req.params
+        const book = await deleteBookbyId(_id);
+        book._id ?
+            res.json({
+                status: 'success',
+                message: 'Book deleted successfully',
+            }) :
+            res.json({
+                status: 'error',
+                message: 'Cannot Delete Book.',
+            })
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.delete('/', async (req, res, next) => {
+    try {
+        const { _id } = req.body
+        console.log(req.body)
+        const book = deleteBookbyId(_id);
+        console.log(book)
+        res.json({
+            status: 'success',
+            book
+        })
+    } catch (error) {
+        next(error)
+    }
+})
+
 
 export default router;

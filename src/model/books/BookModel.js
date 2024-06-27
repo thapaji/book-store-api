@@ -29,7 +29,6 @@ export const updateBookbyId = (_id, book) => {
 /*DELETE ONE or  MANY*/
 
 export const deleteBookbyId = (_id) => {
-    console.log(listItem);
     return BookSchema.findByIdAndDelete(_id);
 }
 
