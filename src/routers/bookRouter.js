@@ -109,20 +109,5 @@ router.delete('/:_id', async (req, res, next) => {
     }
 })
 
-router.delete('/', async (req, res, next) => {
-    try {
-        const { _id } = req.body
-        console.log(req.body)
-        const book = deleteBookbyId(_id);
-        console.log(book)
-        res.json({
-            status: 'success',
-            book
-        })
-    } catch (error) {
-        next(error)
-    }
-})
-
 
 export default router;

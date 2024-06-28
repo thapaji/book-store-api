@@ -28,6 +28,7 @@ export const newUserValidation = (req, res, next) => {
         phone: Joi.string().allow("", null),
         email: Joi.string().email({ minDomainSegments: 2 }),
         password: Joi.string().required(),
+        role: Joi.string().allow("", null),
     });
 
     return joiValiValidator({ req, res, next, schema });

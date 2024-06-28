@@ -15,6 +15,9 @@ export const getUserByEmail = (email) => {
 export const getUsers = () => {
     return UserSchema.find();
 }
+export const getUsersByFilter = (filter) => {
+    return UserSchema.find(filter);
+}
 
 /*UPDATE*/
 

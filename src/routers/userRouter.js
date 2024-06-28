@@ -1,6 +1,6 @@
 import express from "express";
 import { comparePassword, hashPassword } from "../utils/bcrypt.js";
-import { getUserByEmail, insertUser } from "../model/users/UserModel.js";
+import { getUserByEmail, getUsersByFilter, insertUser } from "../model/users/UserModel.js";
 import { newUserValidation } from "../middlewares/joiValidation.js";
 import { signAccessToken, signRefreshJWT } from "../utils/jwt.js";
 import { auth } from "../middlewares/auth.js";
@@ -86,5 +86,36 @@ router.get("/", auth, (req, res, next) => {
     next(error);
   }
 });
+
+router.get("/students", auth, async (req, res, next) => {
+  try {
+    req.userInfo.refreshJWT = undefined;
+    req.userInfo.__v = undefined;
+    const users = await getUsersByFilter({ role: 'student' });
+    res.json({
+      status: "success",
+      message: "All the students",
+      users,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/admins", auth, async (req, res, next) => {
+  try {
+    req.userInfo.refreshJWT = undefined;
+    req.userInfo.__v = undefined;
+    const users = await getUsersByFilter({ role: 'admin' });
+    res.json({
+      status: "success",
+      message: "All the admins",
+      users,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 export default router;
