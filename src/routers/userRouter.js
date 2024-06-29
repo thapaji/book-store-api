@@ -102,6 +102,20 @@ router.get("/students", auth, async (req, res, next) => {
   }
 });
 
+router.get("/:_id", auth, async (req, res, next) => {
+  try {
+    const { _id } = req.params;
+    const user = await getUsersByFilter({ _id });
+    res.json({
+      status: "success",
+      message: "Selected User",
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get("/admins", auth, async (req, res, next) => {
   try {
     req.userInfo.refreshJWT = undefined;
