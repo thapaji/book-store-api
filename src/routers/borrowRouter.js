@@ -50,7 +50,7 @@ router.put("/", auth, async (req, res, next) => {
             isReturned: true,
             returnedDate: new Date()
         })
-        const book = await updateBookbyId(req.body.bookId, { isAvailable: true, expectedAvailable: null });
+        // const book = await updateBookbyId(req.body.bookId, { isAvailable: true, expectedAvailable: null });
 
         borrow?._id
             ? res.json({
@@ -81,7 +81,7 @@ router.get('/all', auth, isAdmin, async (req, res, next) => {
 })
 
 /*************** Public Controllers ***************/
-router.get('/', async (req, res, next) => {
+router.get('/', auth, async (req, res, next) => {
     try {
         const { _id, role } = req.userInfo;
         const borrows = await getAllBorrow({ userId: _id }) || [];
