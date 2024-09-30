@@ -2,7 +2,6 @@ import BookSchema from "./BookSchema.js";
 
 /*CREATE*/
 export const insertBook = (Book) => {
-    console.log(Book)
     return BookSchema(Book).save();
 }
 

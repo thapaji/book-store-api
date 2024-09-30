@@ -2,29 +2,27 @@ import BorrowSchema from "./BorrowSchema.js";
 
 /*CREATE*/
 export const insertBorrow = async (Borrow) => {
-    console.log(Borrow);
     const newBorrow = await new BorrowSchema(Borrow).save();
     return BorrowSchema.findById(newBorrow._id)
         .populate('userId', 'fname lname')
-        .populate('bookId', 'title author'); 
+        .populate('bookId', 'title author');
 }
 
 /*READ*/
 export const getBorrowById = (_id) => {
     return BorrowSchema.findById(_id)
         .populate('userId', 'fname lname')
-        .populate('bookId', 'title author');
+        .populate('bookId', 'title author category thumbnail');
 }
 
 export const getAllBorrow = (filter) => {
     return BorrowSchema.find(filter)
         .populate('userId', 'fname lname')
-        .populate('bookId', 'title author');
+        .populate('bookId', 'title author category thumbnail');
 }
 
 /*UPDATE*/
 export const updateBorrow = async (filter, obj) => {
-    console.log(obj);
     return await BorrowSchema.findOneAndUpdate(filter, obj, { new: true })
         .populate('userId', 'fname lname')
         .populate('bookId', 'title author');

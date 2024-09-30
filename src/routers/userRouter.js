@@ -11,7 +11,6 @@ const router = express.Router();
 /***************** Public Controllers ******************/
 
 router.all("/", (req, res, next) => {
-  console.log("from all");
   next();
 });
 

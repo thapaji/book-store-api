@@ -12,10 +12,9 @@ router.all("/", (req, res, next) => {
     next();
 });
 
-router.post("/", auth, isAdmin, newBorrowValidation, async (req, res, next) => {
+router.post("/", auth, newBorrowValidation, async (req, res, next) => {
     try {
         const today = new Date();
-        console.log(req.body)
         const { _id, fname } = req.userInfo;
         const Borrow = await insertBorrow({ ...req.body, userId: _id, userName: fname });
         if (Borrow) {
@@ -70,10 +69,10 @@ router.put("/", auth, async (req, res, next) => {
 
 router.get('/all', auth, isAdmin, async (req, res, next) => {
     try {
-        const Borrow = await getAllBorrow();
+        const borrows = await getAllBorrow();
         res.json({
             status: 'success',
-            Borrow
+            borrows
         })
     } catch (error) {
         next(error)

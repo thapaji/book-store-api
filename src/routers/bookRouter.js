@@ -11,8 +11,6 @@ router.all("/", (req, res, next) => {
 
 router.post("/", auth, isAdmin, newBookValidation, async (req, res, next) => {
     try {
-
-        console.log(req.body)
         const book = await insertBook(req.body);
         book?._id
             ? res.json({
