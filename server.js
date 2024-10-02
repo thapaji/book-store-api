@@ -6,6 +6,7 @@ import cors from 'cors';
 import userRouter from './src/routers/userRouter.js'
 import bookRouter from './src/routers/bookRouter.js'
 import borrowRouter from './src/routers/borrowRouter.js'
+import newsRouter from './src/routers/newsRouter.js'
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(cors())
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/books', bookRouter)
 app.use('/api/v1/borrows', borrowRouter)
+app.use('/api/v1/news', newsRouter)
 
 app.get('/', (req, res, next) => {
   res.json({
