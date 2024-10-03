@@ -9,20 +9,20 @@ export const insertNews = (news) => {
 export const getNewsById = (_id) => {
     return NewsSchema.findById(_id).populate({
         path: 'author',
-        select: 'fname lname', // Select fname and lname
+        select: 'fname lname', 
     });
 };
 
 export const getAllNews = (filter) => {
     return NewsSchema.find(filter).populate({
         path: 'author',
-        select: 'fname lname', // Select fname and lname
+        select: 'fname lname', 
     });
 };
 
 /* UPDATE */
 export const updateNewsById = (_id, news) => {
-    return NewsSchema.findByIdAndUpdate(_id, { ...news }, { new: true }).populate('authorName');
+    return NewsSchema.findByIdAndUpdate(_id, { ...news }, { new: true });
 }
 
 /* DELETE ONE OR MANY */

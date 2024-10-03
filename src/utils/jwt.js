@@ -6,7 +6,7 @@ import { updateUser } from "../model/users/UserModel.js";
 /*************** Create access JWt *******************/
 
 export const signAccessToken = (payload) => {
-    const token = JWT.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
+    const token = JWT.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30d" });
     insertToken({ token });
     return token;
 }
