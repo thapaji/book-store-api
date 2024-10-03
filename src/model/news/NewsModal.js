@@ -7,12 +7,18 @@ export const insertNews = (news) => {
 
 /* READ */
 export const getNewsById = (_id) => {
-    return NewsSchema.findById(_id).populate('authorName');
-}
+    return NewsSchema.findById(_id).populate({
+        path: 'author',
+        select: 'fname lname', // Select fname and lname
+    });
+};
 
 export const getAllNews = (filter) => {
-    return NewsSchema.find(filter).populate('authorName');
-}
+    return NewsSchema.find(filter).populate({
+        path: 'author',
+        select: 'fname lname', // Select fname and lname
+    });
+};
 
 /* UPDATE */
 export const updateNewsById = (_id, news) => {

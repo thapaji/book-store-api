@@ -18,7 +18,7 @@ const NewsSchema = new mongoose.Schema({
     },
     author: {
         type: mongoose.Types.ObjectId,
-        ref: "users", 
+        ref: "users",
         required: true
     },
     publishedDate: {
@@ -29,11 +29,11 @@ const NewsSchema = new mongoose.Schema({
     timestamps: true,
 });
 
-NewsSchema.virtual('authorName', {
-    ref: 'users',
-    localField: 'author',
-    foreignField: '_id',
-    justOne: true,
+NewsSchema.virtual('authorName').get(function () {
+    if (this.author) {
+        return `${this.author.fname} ${this.author.lname}`; 
+    }
+    return null;
 });
 
 NewsSchema.set('toJSON', { virtuals: true });
