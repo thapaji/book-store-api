@@ -7,6 +7,7 @@ import userRouter from './src/routers/userRouter.js'
 import bookRouter from './src/routers/bookRouter.js'
 import borrowRouter from './src/routers/borrowRouter.js'
 import newsRouter from './src/routers/newsRouter.js'
+import contactRouter from './src/routers/contactRouter.js'
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/api/v1/users', userRouter)
 app.use('/api/v1/books', bookRouter)
 app.use('/api/v1/borrows', borrowRouter)
 app.use('/api/v1/news', newsRouter)
+app.use('/api/v1/contacts', contactRouter)
 
 app.get('/', (req, res, next) => {
   res.json({
