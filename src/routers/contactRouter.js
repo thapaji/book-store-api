@@ -1,28 +1,10 @@
 import express from "express";
 import { auth, isAdmin } from "../middlewares/auth.js";
-import { saveContact, getAllContacts, updateContactById } from "../model/contact/ContactModal.js";
+import { saveContact, getAllContacts, updateContactById, deleteMessageById } from "../model/contact/ContactModal.js";
 
 const router = express.Router();
 
 /*************** Admin Routes ***************/
-
-router.post("/", auth, isAdmin, async (req, res, next) => {
-  try {
-    const contact = await saveContact(req.body);
-    contact?._id
-      ? res.json({
-          status: "success",
-          message: "Contact has been added successfully",
-          contact,
-        })
-      : res.json({
-          status: "error",
-          message: "Unable to add contact. Please try again",
-        });
-  } catch (error) {
-    next(error);
-  }
-});
 
 router.put("/:_id", auth, isAdmin, async (req, res, next) => {
   try {
@@ -45,7 +27,43 @@ router.put("/:_id", auth, isAdmin, async (req, res, next) => {
   }
 });
 
+router.delete("/:_id", auth, isAdmin, async (req, res, next) => {
+  try {
+    const { _id } = req.params;
+    const news = await deleteMessageById(_id);
+    news?._id
+      ? res.json({
+          status: "success",
+          message: "Message deleted successfully",
+        })
+      : res.json({
+          status: "error",
+          message: "Unable to delete message.",
+        });
+  } catch (error) {
+    next(error);
+  }
+});
+
 /*************** Public Routes ***************/
+
+router.post("/", async (req, res, next) => {
+  try {
+    const contact = await saveContact(req.body);
+    contact?._id
+      ? res.json({
+          status: "success",
+          message: "Message sent successfully",
+          contact,
+        })
+      : res.json({
+          status: "error",
+          message: "Unable to send message. Please try again",
+        });
+  } catch (error) {
+    next(error);
+  }
+});
 
 router.get("/", async (req, res, next) => {
   try {

@@ -20,3 +20,7 @@ export const updateContactById = async (_id, updateData) => {
     throw new Error("Error updating contact: " + error.message);
   }
 };
+
+export const deleteMessageById = (_id) => {
+  return ContactSchema.findByIdAndDelete(_id);
+};
