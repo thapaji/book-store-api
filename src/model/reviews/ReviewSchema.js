@@ -1,10 +1,11 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const BorrowSchema = new mongoose.Schema({
+const ReviewSchema = new mongoose.Schema(
+  {
     userId: {
-        type: mongoose.Types.ObjectId,
-        ref: "User",
-        required: true
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     /*************************************** 
     userName: {
@@ -13,32 +14,32 @@ const BorrowSchema = new mongoose.Schema({
     },
     *****************************************/
     bookId: {
-        type: mongoose.Types.ObjectId,
-        ref: "Book",
-        required: true
+      type: mongoose.Types.ObjectId,
+      ref: "Book",
+      required: true,
     },
     status: {
-        type: String,
-        default: 'inactive'
+      type: String,
+      default: "inactive",
     },
     title: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     message: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     ratings: {
-        type: Number,
-        min: 1,
-        max: 5,
-        required: true
+      type: Number,
+      min: 1,
+      max: 5,
+      required: true,
     },
-},
-    {
-        timestamps: true,
-    }
-)
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default mongoose.model('Review', ReviewSchema)
+export default mongoose.model("Review", ReviewSchema);
