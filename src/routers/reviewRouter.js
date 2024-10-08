@@ -8,7 +8,7 @@ router.all("/", (req, res, next) => {
   next();
 });
 
-router.post("/", auth, isAdmin, async (req, res, next) => {
+router.post("/", auth, async (req, res, next) => {
   try {
     const review = await insertReview(req.body);
     review?._id
@@ -30,7 +30,7 @@ router.post("/", auth, isAdmin, async (req, res, next) => {
   }
 });
 
-router.put("/", auth, isAdmin, async (req, res, next) => {
+router.patch("/", auth, isAdmin, async (req, res, next) => {
   try {
     const review = await updateReviewbyId(req.body._id, req.body);
     review?._id
@@ -52,6 +52,19 @@ router.put("/", auth, isAdmin, async (req, res, next) => {
 router.get("/all", auth, isAdmin, async (req, res, next) => {
   try {
     const reviews = await getAllReviews();
+    res.json({
+      status: "success",
+      reviews,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+router.get("/user", auth, async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const user = req.userInfo;
+    const reviews = await getAllReviews({ userId: user._id });
     res.json({
       status: "success",
       reviews,
