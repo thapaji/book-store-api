@@ -1,62 +1,53 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const BookSchema = new mongoose.Schema({
+const BookSchema = new mongoose.Schema(
+  {
     status: {
-        type: String,
-        default: 'inactive'
+      type: String,
+      default: "inactive",
     },
     title: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     author: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     isbn: {
-        type: String,
-        unique: true,
-        index: 1,
-        required: true
+      type: String,
+      unique: true,
+      index: 1,
+      required: true,
     },
     category: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     publishedYear: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
     thumbnail: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     description: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     count: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
     damaged: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
-    /************************* 
-    isAvailable: {
-        type: Boolean,
-        required: true
-    },
-    expectedAvailable: {
-        type: String,
-        default: null
-    }
-    ***************************/
-},
-    {
-        timestamps: true,
-    }
-)
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default mongoose.model('book', BookSchema)
+export default mongoose.model("Book", BookSchema);
