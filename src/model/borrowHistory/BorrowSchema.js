@@ -1,45 +1,48 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const BorrowSchema = new mongoose.Schema({
+const BorrowSchema = new mongoose.Schema(
+  {
     userId: {
-        type: mongoose.Types.ObjectId,
-        ref: "users",
-        required: true
+      type: mongoose.Types.ObjectId,
+      ref: "users",
+      required: true,
     },
     bookId: {
-        type: mongoose.Types.ObjectId,
-        ref: "book",
-        required: true
+      type: mongoose.Types.ObjectId,
+      ref: "Book",
+      required: true,
     },
     dueDate: {
-        type: Date,
+      type: Date,
     },
     isReturned: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
     returnedDate: {
-        type: Date,
-    }
-}, {
+      type: Date,
+    },
+  },
+  {
     timestamps: true,
+  }
+);
+
+BorrowSchema.virtual("userName", {
+  ref: "users",
+  localField: "userId",
+  foreignField: "_id",
+  justOne: true,
 });
 
-BorrowSchema.virtual('userName', {
-    ref: 'users',
-    localField: 'userId',
-    foreignField: '_id',
-    justOne: true,
+BorrowSchema.virtual("bookDetails", {
+  ref: "books",
+  localField: "bookId",
+  foreignField: "_id",
+  justOne: true,
 });
 
-BorrowSchema.virtual('bookDetails', {
-    ref: 'books',
-    localField: 'bookId',
-    foreignField: '_id',
-    justOne: true,
-});
+BorrowSchema.set("toJSON", { virtuals: true });
+BorrowSchema.set("toObject", { virtuals: true });
 
-BorrowSchema.set('toJSON', { virtuals: true });
-BorrowSchema.set('toObject', { virtuals: true });
-
-export default mongoose.model('borrow', BorrowSchema);
+export default mongoose.model("borrow", BorrowSchema);

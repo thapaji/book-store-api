@@ -7,11 +7,27 @@ export const insertReview = (Review) => {
 
 /*READ*/
 export const getReviewById = (_id) => {
-  return ReviewSchema.findById(_id);
+  return ReviewSchema.findById(_id)
+    .populate({
+      path: "userId",
+      select: "fname lname",
+    })
+    .populate({
+      path: "bookId",
+      select: "title thumbnail",
+    });
 };
 
 export const getAllReviews = (filter) => {
-  return ReviewSchema.find(filter);
+  return ReviewSchema.find(filter)
+    .populate({
+      path: "userId",
+      select: "fname lname",
+    })
+    .populate({
+      path: "bookId",
+      select: "title thumbnail",
+    });
 };
 
 /*UPDATE*/
