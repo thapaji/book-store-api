@@ -9,6 +9,10 @@ export const getAllContacts = () => {
   return ContactSchema.find().sort({ submittedAt: -1 });
 };
 
+export const getUnreadContacts = async () => {
+  return await ContactSchema.find({ status: "unread" });
+};
+
 export const updateContactById = async (_id, updateData) => {
   try {
     const updatedContact = await ContactSchema.findByIdAndUpdate(_id, { $set: updateData }, { new: true });

@@ -1,6 +1,6 @@
 import express from "express";
 import { auth, isAdmin } from "../middlewares/auth.js";
-import { saveContact, getAllContacts, updateContactById, deleteMessageById } from "../model/contact/ContactModal.js";
+import { saveContact, getAllContacts, updateContactById, deleteMessageById, getUnreadContacts } from "../model/contact/ContactModal.js";
 
 const router = express.Router();
 
@@ -71,6 +71,18 @@ router.get("/", async (req, res, next) => {
     res.json({
       status: "success",
       contact: contactList,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/unread", async (req, res, next) => {
+  try {
+    const unreadContacts = await getUnreadContacts();
+    res.json({
+      status: "success",
+      unreadContacts,
     });
   } catch (error) {
     next(error);
